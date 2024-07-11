@@ -1,13 +1,22 @@
-#include <utils.h>
+#include <lufrak.h>
 
 int main(void)
 {
-    SetAttributes(SELECTED);
-    PrintAt(2, 2, "Ciao %d", 2);
-    SetAttributes(NORMAL);
-    PrintAt(4, 4, "Ciao %d", 3);
+    InitApp();
+    
+    Tool tools[] = {
+        GET_TOOL(Upgrader),
+        GET_TOOL(Installer)
+    };
 
-    getchar();
+    int choice;
+
+    do{
+        choice = Menu();
+
+        if(choice != endMenuIdx)
+            tools[choice]();
+    } while(choice != endMenuIdx);
 
     return 0;
 }

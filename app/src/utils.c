@@ -1,34 +1,58 @@
 #include <utils.h>
 
-#define GET_CONSOLE() HANDLE console = GetStdHandle(STD_OUTPUT_HANDLE)
-
-void PrintAt(SHORT x, SHORT y, const char* fmt, ...)
+void DieIf(bool test)
 {
-    GET_CONSOLE();
+    if(test)
+    {
+        endwin();
+        exit(EXIT_FAILURE);
+    }
+}
 
-    va_list args;
+void* SafeMalloc(size_t size)
+{
+    void* ptr = malloc(size);
+    DieIf(ptr == NULL);
+    return ptr;
+}
 
-    SetConsoleCursorPosition(console, (COORD){x, y});
+void Wait(clock_t milliseconds)
+{
+    clock_t start = clock();
+    while(clock() - start < milliseconds);
+    return;
+}
 
-    va_start(args, fmt);
-    vprintf_s(fmt, args);
-    va_end(args);
+void ClearScreen(void)
+{
+    clear();
+    box(stdscr, 0, 0);
+    refresh();
 
     return;
 }
 
-void SetAttributes(WORD attributes)
+void DrawBanner(const char* banner[], int numLines)
 {
-    GET_CONSOLE();
+    int i;
 
-    SetConsoleTextAttribute(console, attributes);
+    ClearScreen();
+
+    mvhline(10, 1, 0, COLS - 2);
+
+    for(i = 0; i < numLines; i++)
+        mvprintw(2 + i, COLS / 2 - strlen(banner[i]) / 2, banner[i]);
+
+    refresh();
+    
     return;
 }
 
-COORD GetConsoleSize()
+void PrintMessage(const char* banner[], int numLines, const char* message)
 {
-    GET_CONSOLE();
-    CONSOLE_SCREEN_BUFFER_INFO consoleInfo = {0};
+    DrawBanner(banner, numLines);
+    mvprintw(LINES / 2 + 5, COLS / 2 - strlen(message) / 2, message);
+    refresh();
 
-    return (GetConsoleScreenBufferInfo(console, &consoleInfo)) ? consoleInfo.dwSize : (COORD){0};
+    return;
 }
