@@ -21,12 +21,28 @@ void InitApp(void)
     return;
 }
 
+void RunTool(ToolFuncPtr runFunc, ToolFuncPtr drawFunc)
+{
+	pthread_t runThread, drawThread;
+
+	pthread_create(&runThread, NULL, runFunc, NULL);
+	pthread_create(&drawThread, NULL, drawFunc, NULL);
+
+	pthread_join(runThread, NULL);
+	pthread_join(drawThread, NULL);
+
+	return;
+}
+
 bool RunCommand(const Command* command)
 {
+	if(command == NULL)
+		return false;
+
     SHELLEXECUTEINFOA sei = { 0 };
 
 	sei.cbSize = sizeof(sei);
-	//sei.fMask = SEE_MASK_NOCLOSEPROCESS;
+	sei.fMask = SEE_MASK_NOCLOSEPROCESS;
 	sei.lpVerb = "runas";
 	sei.lpFile = command->command;
 	sei.lpParameters = command->args;
@@ -44,6 +60,9 @@ bool RunCommand(const Command* command)
 
 bool RunCommands(const Command* commands, size_t numCommands)
 {
+	if(commands == NULL)
+		return false;
+
 	int i, result = 0;
 
 	for(i = 0; i < numCommands; i++)
@@ -54,6 +73,9 @@ bool RunCommands(const Command* commands, size_t numCommands)
 
 bool InstallPackage(const Package* package)
 {
+	if(package == NULL)
+		return false;
+
 	Command command = { 0 };
 
 	command.command = "winget";
@@ -61,5 +83,50 @@ bool InstallPackage(const Package* package)
 
 	sprintf_s(command.args, STR_SIZE, "install -e --id %s", package->wingetID);
 
-    return RunCommand(&command);
+	bool result = RunCommand(&command);
+
+	free(command.args);
+
+    return result;
+}
+
+void GetSystemInformation(SystemInformation* sysInfo)
+{
+	if(sysInfo == NULL)
+		return;
+	
+	*sysInfo = (SystemInformation){ 0 };
+
+	sysInfo->wMemInfo.dwLength = sizeof(sysInfo->wMemInfo);
+	
+	GetSystemInfo(&sysInfo->wSysInfo);
+	GlobalMemoryStatusEx(&sysInfo->wMemInfo);
+
+	sysInfo->processorName = SafeMalloc(sizeof(char) * 48);
+	
+	memset(sysInfo->processorName, 0, sizeof(char) * 48);
+	__cpuid((int*)(sysInfo->processorName), 0x80000002);
+	__cpuid((int*)(sysInfo->processorName + 16), 0x80000003);
+	__cpuid((int*)(sysInfo->processorName + 32), 0x80000004);
+
+	switch (sysInfo->wSysInfo.wProcessorArchitecture)
+	{
+		case PROCESSOR_ARCHITECTURE_INTEL:
+			sysInfo->processorArchitecture = "x86 32 bit";
+			break;
+		case PROCESSOR_ARCHITECTURE_AMD64:
+			sysInfo->processorArchitecture = "x86 64 bit";
+			break;
+		case PROCESSOR_ARCHITECTURE_ARM:
+			sysInfo->processorArchitecture = "ARM 32 bit";
+			break;
+		case PROCESSOR_ARCHITECTURE_ARM64:
+			sysInfo->processorArchitecture = "ARM 64 bit";
+			break;
+		case PROCESSOR_ARCHITECTURE_IA64:
+			sysInfo->processorArchitecture = "IA 64 bit";
+			break;
+	}
+
+	return;
 }

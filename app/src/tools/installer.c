@@ -10,27 +10,27 @@ static const char* banner[] = {
     "|___|_| |_|___/\\__\\__,_|_|_|\\___|_|    ",
 };
 
-static const Package packages[] = {
-    { "Google Chrome",         "Google.Chrome" },
-    { "Mozilla Firefox",       "Mozilla.Firefox" },
-    { "Adobe Acrobat Reader",  "Adobe.Acrobat.Reader.64-bit" },
-    { "Discord",               "Discord.Discord" },
-    { "Steam",                 "Valve.Steam" },
-    { "Epic Games Launcher",   "EpicGames.EpicGamesLauncher" },
-    { "WhatsApp",              "WhatsApp.WhatsApp" },
-    { "Malwarebytes",          "Malwarebytes.Malwarebytes" },
-    { "VLC Media Player",      "VideoLAN.VLC" },
-    { "WinRAR",                "RARLab.WinRAR" },
-    { "Telegram Desktop",      "Telegram.TelegramDesktop" },
-    { "Visual Studio Code",    "Microsoft.VisualStudioCode" },
-    { "Notepad++",             "Notepad++.Notepad++" },
-    { "OBS Studio",            "OBSProjecct.OBSStudio" },
-    { "qBittorrent",           "qBittorrent.qBittorrent" },
-    { "CCleaner",              "Piriform.CCleaner" },
-    { "Logitech G HUB",        "Logitech.GHUB" },
-    { "GIMP",                  "GIMP.GIMP" },
-    { "EA Desktop",            "ElectronicArts.EADesktop" },
-    { "HWiNFO",                "REALiX.HWiNFO" }
+static Package packages[] = {
+    { "Google Chrome",         "Google.Chrome", false },
+    { "Mozilla Firefox",       "Mozilla.Firefox", false },
+    { "Adobe Acrobat Reader",  "Adobe.Acrobat.Reader.64-bit", false },
+    { "Discord",               "Discord.Discord", false },
+    { "Steam",                 "Valve.Steam", false },
+    { "Epic Games Launcher",   "EpicGames.EpicGamesLauncher", false },
+    { "WhatsApp",              "WhatsApp.WhatsApp", false },
+    { "Malwarebytes",          "Malwarebytes.Malwarebytes", false },
+    { "VLC Media Player",      "VideoLAN.VLC", false },
+    { "WinRAR",                "RARLab.WinRAR", false },
+    { "Telegram Desktop",      "Telegram.TelegramDesktop", false },
+    { "Visual Studio Code",    "Microsoft.VisualStudioCode", false },
+    { "Notepad++",             "Notepad++.Notepad++", false },
+    { "OBS Studio",            "OBSProjecct.OBSStudio", false },
+    { "qBittorrent",           "qBittorrent.qBittorrent", false },
+    { "CCleaner",              "Piriform.CCleaner", false },
+    { "Logitech G HUB",        "Logitech.GHUB", false },
+    { "GIMP",                  "GIMP.GIMP", false },
+    { "EA Desktop",            "ElectronicArts.EADesktop", false },
+    { "HWiNFO",                "REALiX.HWiNFO", false }
 };
 
 static const size_t numPackages = sizeof(packages) / sizeof(Package);
@@ -43,11 +43,9 @@ static const char* msgs[] = {
 };
 
 static const size_t numMsg = sizeof(msgs) / sizeof(char*);
-static Package* selectedPackages = NULL;
-static int* selectedIdxs = NULL;
-static int selectedCounter = 0;
 
 static int i;
+static int selectedCounter = 0;
 static int result = PROCESSING;
 TOOL_MESSAGES()
 
@@ -56,9 +54,7 @@ static bool GetSelection(void)
     attr_t hoverAttr = A_BOLD | COLOR_PAIR(1);
     attr_t selectedAttr = A_BOLD | COLOR_PAIR(2);
 
-    selectedCounter = 0;
-    selectedIdxs = SafeMalloc(sizeof(int) * numPackages);
-    int i, j, drawX, drawY;
+    int i, drawX, drawY;
     int hovered = 0;
     int key = 0;
 
@@ -80,9 +76,8 @@ static bool GetSelection(void)
             if (i == hovered)
                 attron(hoverAttr);
 
-            for (j = 0; j < selectedCounter; j++)
-                if (selectedIdxs[j] == i)
-                    attron(selectedAttr);
+            if (packages[i].selected)
+                attron(selectedAttr);
 
             mvprintw(drawY + i, drawX, packages[i].displayName);
             attroff(hoverAttr);
@@ -99,9 +94,9 @@ static bool GetSelection(void)
             case KEY_DOWN:  (hovered == numPackages - 1) ? hovered = 0 : ++hovered;   break;
 
             case ' ':
-                if (selectedIdxs[selectedCounter - 1] == hovered) selectedCounter--;
-                else selectedIdxs[selectedCounter++] = hovered;
-                
+                packages[hovered].selected = !packages[hovered].selected;
+                (packages[hovered].selected) ? selectedCounter++ : selectedCounter--;
+
                 break;
 
             case 'm':       return false;
@@ -111,20 +106,20 @@ static bool GetSelection(void)
     return (selectedCounter > 0);
 }
 
-static void* Draw(void* arg)
+TOOL_FUNC(Draw)
 {
     char msgRunning[STR_SIZE];
 
     char chars[] = "|/-|-\\";
-    size_t charsLen = strlen(chars);
+    size_t charsLen = sizeof(chars) - 1;
     
     int j = 0;
 
-    while (i < selectedCounter)
+    while (i < numPackages)
     {
         (j < charsLen - 1) ? (j++) : (j = 0);
 
-        sprintf_s(msgRunning, STR_SIZE, "Installing %s %c", selectedPackages[i].displayName, chars[j]);
+        sprintf_s(msgRunning, STR_SIZE, "Installing %s %c", packages[i].displayName, chars[j]);
         PrintMessage(banner, 5, msgRunning);
 
         Wait(500);            
@@ -133,37 +128,20 @@ static void* Draw(void* arg)
     return NULL;
 }
 
-static void* Run(void* arg)
+TOOL_FUNC(Run)
 {
-    for(i = 0; i < selectedCounter; i++)
-        result += InstallPackage(&selectedPackages[i]);
-
-    free(selectedIdxs);
-    free(selectedPackages);
+    for(i = 0; i < numPackages; i++)
+        if(packages[i].selected)
+            result += InstallPackage(&packages[i]);
 
     return NULL;
 }
 
 DEFINE_TOOL(Installer)
 {
-    pthread_t installThread;
-    pthread_t drawThread;
-
-    bool selectionDone = GetSelection();
-
-    if (selectionDone)
+    if (GetSelection())
     {
-        selectedPackages = (Package*) SafeMalloc(sizeof(Package) * selectedCounter);
-
-        for(i = 0; i < selectedCounter; i++)
-            selectedPackages[i] = packages[selectedIdxs[i]];
-
-        pthread_create(&installThread, NULL, &Run, NULL);
-        pthread_create(&drawThread, NULL, &Draw, NULL);
-
-        pthread_join(installThread, NULL);
-        pthread_join(drawThread, NULL);
-
+        RunTool(&Run, &Draw);
         PrintMessage(banner, 5, (result == selectedCounter) ? msgSuccess : msgFailure);
 
         getch();

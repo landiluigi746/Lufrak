@@ -6,7 +6,11 @@ int main(void)
     
     Tool tools[] = {
         GET_TOOL(Upgrader),
-        GET_TOOL(Installer)
+        GET_TOOL(Installer),
+        NULL, // todo: optimizer
+        NULL, // todo: backup and security
+        GET_TOOL(SystemInfo),
+        GET_TOOL(GodMode)
     };
 
     int choice;

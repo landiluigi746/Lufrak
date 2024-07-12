@@ -13,13 +13,13 @@ static Command command = { 0 };
 static int result = PROCESSING;
 TOOL_MESSAGES()
 
-static void* Draw(void* arg)
+TOOL_FUNC(Draw)
 {
     char msgRunning[] = "Running upgrader. Please wait |";
-    size_t msgLen = strlen(msgRunning);
+    size_t msgLen = sizeof(msgRunning) - 1;
 
     char chars[] = "|/-|-\\";
-    size_t charsLen = strlen(chars);
+    size_t charsLen = sizeof(chars) - 1;
     
     int i = 0;
 
@@ -36,7 +36,7 @@ static void* Draw(void* arg)
     return NULL;
 }
 
-static void* Run(void* arg)
+TOOL_FUNC(Run)
 {
     result = (RunCommand(&command)) ? SUCCESS : FAILURE;
 
@@ -48,15 +48,7 @@ DEFINE_TOOL(Upgrader)
     command.command = "winget";
     command.args = "upgrade --all";
 
-    pthread_t runThread;
-    pthread_t drawThread;
-
-    pthread_create(&runThread, NULL, &Run, NULL);
-    pthread_create(&drawThread, NULL, &Draw, NULL);
-
-    pthread_join(runThread, NULL);
-    pthread_join(drawThread, NULL);
-
+    RunTool(&Run, &Draw);
     PrintMessage(banner, 6, (result == SUCCESS) ? msgSuccess : msgFailure);
 
     getch();

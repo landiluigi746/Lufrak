@@ -16,6 +16,7 @@ all: $(TARGET)
 
 $(TARGET): $(OBJ_FILES)
 	$(CC) $(OBJ_FILES) -o $@ $(LDFLAGS)
+	make clean
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
