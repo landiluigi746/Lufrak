@@ -22,5 +22,7 @@ int main(void)
             tools[choice]();
     } while(choice != endMenuIdx);
 
+    CloseApp();
+
     return 0;
 }

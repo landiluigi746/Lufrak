@@ -23,13 +23,15 @@ static const char* texts[] = {
 
 static const size_t numCommands = min(sizeof(commands) / sizeof(Command), sizeof(texts) / sizeof(char*));
 
+static const char* menuCommands = "Use up/down arrow keys to move through the menu. Press enter to select or m to return to menu";
+
 static int selected = 0;
 static int result = PROCESSING;
 TOOL_MESSAGES()
 
 static bool GetSelection(void)
 {
-    attr_t hoverAttr = A_BOLD | COLOR_PAIR(1);
+    attr_t hoveredAttr = A_BOLD | COLOR_PAIR(1);
 
     int key = 0;
     int i;
@@ -40,13 +42,15 @@ static bool GetSelection(void)
         for (i = 0; i < numCommands; i++)
         {
             if (i == selected)
-                attron(hoverAttr);
+                attron(hoveredAttr);
 
             mvprintw(LINES / 2 + i, COLS / 2 - strlen(texts[i]) / 2, texts[i]);
-            attroff(hoverAttr);
+            attroff(hoveredAttr);
         }
 
-        refresh();
+        attron(hoveredAttr);
+        mvprintw(LINES - 3, COLS / 2 - strlen(menuCommands) / 2, menuCommands);
+        attroff(hoveredAttr);
 
         key = tolower(getch());
 
