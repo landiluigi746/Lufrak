@@ -24,6 +24,7 @@ void InitApp(void)
 void CloseApp(void)
 {
 	CoUninitialize();
+	endwin();
 
 	return;
 }
