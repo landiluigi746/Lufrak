@@ -49,6 +49,7 @@ typedef void* (*ToolFuncPtr)(void*);
 extern size_t endMenuIdx;
 
 void InitApp(void);
+void CloseApp(void);
 void RunTool(ToolFuncPtr runFunc, ToolFuncPtr drawFunc);
 bool RunCommand(const Command* command);
 bool RunCommands(const Command* commands, size_t numCommands);
