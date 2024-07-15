@@ -28,7 +28,7 @@ const devs = [
     {
         name: 'Francesco Gaeta',
         img: 'images/francescogaeta.jpg',
-        link: 'https://github.com/gaetafrancesco'
+        link: 'https://github.com/KeKK0z'
     }
 ];
 
