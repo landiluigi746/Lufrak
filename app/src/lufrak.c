@@ -21,6 +21,13 @@ void InitApp(void)
     return;
 }
 
+void CloseApp(void)
+{
+	CoUninitialize();
+
+	return;
+}
+
 void RunTool(ToolFuncPtr runFunc, ToolFuncPtr drawFunc)
 {
 	pthread_t runThread, drawThread;
