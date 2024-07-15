@@ -59,6 +59,8 @@ int Menu(void);
 
 DEFINE_TOOL(Upgrader);
 DEFINE_TOOL(Installer);
+DEFINE_TOOL(Optimizer);
+DEFINE_TOOL(BackupAndSecurity);
 DEFINE_TOOL(SystemInfo);
 DEFINE_TOOL(GodMode);
 
