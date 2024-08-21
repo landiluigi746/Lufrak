@@ -1,0 +1,18 @@
+# Output directories
+bin
+bin-int
+
+# Visual Studio Solution
+*.sln
+
+# Visual Studio Project
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+*.vcxproj.local
+
+# vscode
+.vscode
+
+# Visual Studio
+.vs

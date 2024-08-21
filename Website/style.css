@@ -1,0 +1,156 @@
+@font-face {
+    src: url(fonts/Cardo.ttf);
+    font-family: Cardo;
+}
+
+body{
+    margin: 0;
+    text-align: center;
+    font-family: "Inter", sans-serif;
+}
+
+.wrap{
+    display: block;
+    white-space: pre-line;
+    margin: 0 auto;
+    max-width: 600px;
+}
+
+.padding{
+    padding: 20px;
+}
+
+.spacer{
+    height: 40px;
+}
+
+.item{
+    overflow: hidden;
+}
+
+.item-toanimate {
+    opacity: 0;
+    transform: translateY(100%);
+    transition: opacity 0.5s linear, transform 0.5s linear;
+}
+
+.show-item {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.normal-text {
+    font-family: Cardo;
+    font-weight: normal;
+}
+
+.circle {
+    height: 25px;
+    width: 25px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+}
+
+header{
+    background-color: #f9f9f9;
+    text-align: center;
+    padding: 20px;
+}
+
+.title {
+    font-size: 3.0em;
+    font-style: normal;
+    font-weight: bold;
+    font-family: Cardo;
+}
+
+.subtitle {
+    font-size: 1.2em;
+    font-size: 35px;
+}
+
+.download-btn {
+    display: inline-block;
+    background-color: #4CAF50;
+    color: black;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2em;
+    margin: 20px;
+    border: none;
+    border-radius: 5px;
+}
+
+.download-btn:hover {
+    background-color: #45a049;
+}
+
+.brief {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.brief-text {
+    flex: 1;
+    padding: 20px;
+    max-width: 38%;
+    text-align: justify;
+    font-size: 1.2em;
+}
+
+.brief-img {
+    flex: 1;
+    margin-left: 5%;
+    max-width: 40%;
+    height: auto;
+    border: solid;
+    border-radius: 10px;
+}
+
+.features {
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.feature {
+    float: left;
+    padding: 20px;
+    max-width: 28%;
+    margin-left: 20px;
+    text-align: justify;
+}
+
+footer {
+    background-color: black;
+    padding: 50px;
+    color: white;
+}
+
+.devs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.dev-img {
+    max-width: 50px;
+    border-radius: 50%;
+    margin: 10px;
+}
+
+.dev-name {
+    font-size: 1.2em;
+    font-weight: bold;
+    margin: 10px;
+}
+
+.dev-link {
+    text-decoration: none;
+    color: white;
+}
