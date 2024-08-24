@@ -1,42 +1,64 @@
-#include "raylib.h"
+#include "Lufrak.h"
 
-#if defined(_WIN32)
-#define NOGDI
-#define NOUSER
-#endif
-
-#include <Windows.h>
-
-#if defined(_WIN32)
-#undef near
-#undef far
-#endif
-
-#define RAYGUI_IMPLEMENTATION
-#include "raygui.h"
-#include "style_dark.h"
+#include <raygui.h>
+#include <style_dark.h>
 
 int main(void)
 {
-	InitWindow(800, 450, "Example");
+	const LufrakTool tools[] = {
+		{ "Upgrader", NULL },
+		{ "Installer", NULL },
+		{ "Optimizer", NULL },
+		{ "Backup and Security", NULL },
+		{ "Display System Information", &SystemInfo },
+		{ "Enable God Mode", NULL }
+	};
 
-	GuiLoadStyleDark();
+	const size_t numTools = sizeof(tools) / sizeof(tools[0]);
+	size_t i;
+
+	LufrakInit();
 
 	while (!WindowShouldClose())
 	{
 		BeginDrawing();
 
 		{
-			GuiLabel((Rectangle) { 120, 120, 100, 50 }, "Hello!");
+			ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
 
-			if (GuiButton((Rectangle) { 250, 120, 100, 50 }, "Button!"))
-				TraceLog(LOG_INFO, "Button Clicked!");
+			uint32_t buttonSpacing = 45;
+			Rectangle buttonRect = { GetScreenWidth() / 2 - 130, GetScreenHeight() / 2 - (numTools + 1) * buttonSpacing / 2, 260, 35};
+			Vector2 titlePos = { buttonRect.x, buttonRect.y - buttonSpacing * 2 };
+
+			GuiSetStyle(DEFAULT, TEXT_SIZE, TITLE_FONT_SIZE);
+
+			GuiLabel((Rectangle){ buttonRect.x, buttonRect.y - buttonSpacing * 2, 260, 50 }, "Lufrak");
+
+			GuiSetStyle(DEFAULT, TEXT_SIZE, BUTTON_FONT_SIZE);
+
+			for (i = 0; i < numTools; ++i)
+			{
+				buttonRect.y += buttonSpacing;
+
+				if (GuiButton(buttonRect, tools[i].displayText))
+				{
+					TraceLog(LOG_INFO, "Button %zu clicked!", i);
+
+					if (tools[i].function != NULL)
+						tools[i].function();
+				}
+			}
+
+			buttonRect.y += buttonSpacing;
+
+			if (GuiButton(buttonRect, "Exit"))
+				break;
 		}
 
 		EndDrawing();
 	}
 
-	CloseWindow();
+	LufrakClose();
 
 	return 0;
 }
