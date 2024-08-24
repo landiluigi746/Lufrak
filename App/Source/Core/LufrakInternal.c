@@ -7,8 +7,8 @@
 #define INTERNAL_BUF_SIZE 256
 
 void LufrakInternalInit(void)
-{
-	assert(SUCCEEDED(CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE)));
+{	
+	ASSERT(SUCCEEDED(CoInitializeEx(NULL, COINIT_APARTMENTTHREADED | COINIT_DISABLE_OLE1DDE)), "Error while initializing COM library");
 
 	return;
 }
@@ -20,7 +20,7 @@ void LufrakInternalClose(void)
 
 static bool RunCmdCommand(const LufrakCommand* cmd)
 {
-	assert(cmd != NULL && "Null pointer caught by RunCmdCommand()\n");
+	ASSERT(cmd != NULL, "Null pointer caught by RunCmdCommand()");
 
 	SHELLEXECUTEINFOA sei = { 0 };
 
@@ -43,8 +43,8 @@ static bool RunCmdCommand(const LufrakCommand* cmd)
 
 static bool InstallPackage(const LufrakCommand* package)
 {
-	assert(package != NULL && "Null pointer caught by InstallPackage()\n");
-	assert(package->type == WINGET_PACKAGE && "Non winget package caught by InstallPackage()\n");
+	ASSERT(package != NULL, "Null pointer caught by InstallPackage()");
+	ASSERT(package->type == WINGET_PACKAGE, "Non winget package caught by InstallPackage()");
 
 	LufrakCommand command = { 0 };
 
@@ -63,7 +63,7 @@ static bool InstallPackage(const LufrakCommand* package)
 
 bool RunLufrakCommand(const LufrakCommand* command)
 {
-	assert(command != NULL && "Null pointer caught by RunLufrakCommand()\n");
+	ASSERT(command != NULL, "Null pointer caught by RunLufrakCommand()");
 
 	bool result = false;
 
@@ -79,6 +79,8 @@ bool RunLufrakCommand(const LufrakCommand* command)
 
 bool RunLufrakCommands(const LufrakCommand* commands, size_t numCommands)
 {
+	ASSERT(commands != NULL, "Null pointer caught by RunLufrakCommands()");
+
 	size_t i, result = 0;
 
 	for (i = 0; i < numCommands; ++i)
@@ -96,7 +98,7 @@ SystemInformation GetSystemInformation(void)
 	GetSystemInfo(&sysInfo.sysInfo);
 	GlobalMemoryStatusEx(&sysInfo.memInfo);
 
-	ZeroMemory(sysInfo.processorName, sizeof(char) * 49);
+	ZeroMemory(sysInfo.processorName, ARRAY_SIZE(sysInfo.processorName));
 	__cpuid((int*)(sysInfo.processorName), 0x80000002);
 	__cpuid((int*)(sysInfo.processorName + 16), 0x80000003);
 	__cpuid((int*)(sysInfo.processorName + 32), 0x80000004);

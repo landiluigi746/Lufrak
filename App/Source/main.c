@@ -14,7 +14,7 @@ int main(void)
 		{ "Enable God Mode", NULL }
 	};
 
-	const size_t numTools = sizeof(tools) / sizeof(tools[0]);
+	const size_t numTools = ARRAY_SIZE(tools);
 	size_t i;
 
 	LufrakInit();

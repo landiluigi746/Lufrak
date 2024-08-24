@@ -16,7 +16,7 @@ IMPL_TOOL(SystemInfo)
 		TextFormat("Total RAM: %.2lf GB", (double)sysInfo.memInfo.ullTotalPhys / (1024 * 1024 * 1024))
 	};
 
-	const size_t numTexts = sizeof(texts) / sizeof(texts[0]);
+	const size_t numTexts = ARRAY_SIZE(texts);
 	size_t i;
 
 	bool running = true;

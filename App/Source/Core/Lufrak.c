@@ -10,8 +10,13 @@ static Font font = { 0 };
 static const int windowWidth = 800;
 static const int windowHeight = 600;
 
+static bool initialized = false;
+
 void LufrakInit(void)
 {
+	if (initialized)
+		return;
+
 	LufrakInternalInit();
 
 	InitWindow(windowWidth, windowHeight, "Example");
@@ -25,15 +30,22 @@ void LufrakInit(void)
 
 	GuiSetStyle(LABEL, TEXT_ALIGNMENT, TEXT_ALIGN_CENTER);
 
+	initialized = true;
+
 	return;
 }
 
 void LufrakClose(void)
 {
+	if (!initialized)
+		return;
+
 	CloseWindow();
 	UnloadFont(font);
 
 	LufrakInternalClose();
+
+	initialized = false;
 
 	return;
 }

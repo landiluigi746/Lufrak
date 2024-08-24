@@ -17,8 +17,6 @@
 #endif
 
 #include <minwindef.h>
-#include <stdio.h>
-#include <stdlib.h>
 #include <sysinfoapi.h>
 
 typedef enum
