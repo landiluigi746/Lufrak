@@ -25,7 +25,7 @@ project "Lufrak-App"
     }
     files { "Source/**.h", "Source/**.c" }
 
-    includedirs { "Source" }
+    includedirs { "Source/**" }
     
     link_raylib()
     include_raygui()
