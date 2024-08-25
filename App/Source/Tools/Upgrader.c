@@ -29,18 +29,18 @@ TOOL_DRAW_FUNC()
 		{
 			ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
 
-			Rectangle textRect = { GetScreenWidth() / 2 - 250, GetScreenHeight() / 2 - 60, 500, 70};
+			Rectangle textRect = { GetScreenWidth() / 2 - 250, GetScreenHeight() / 2 - 60, 500, 70 };
 
 			GuiSetStyle(DEFAULT, TEXT_SIZE, SUBTITLE_FONT_SIZE);
-			GuiLabel((Rectangle) { GetScreenWidth() / 2 - 150, textRect.y - 100, 300, 35 }, "God Mode");
+			GuiLabel((Rectangle) { GetScreenWidth() / 2 - 150, textRect.y - 100, 300, 35 }, "Upgrader");
 
 			switch (status)
 			{
 			case PROCESSING:
-				text = "Unlocking god mode. Please wait";
+				text = "Upgrading programs. Please wait";
 				break;
 			case SUCCESS:
-				text = "Done! You can find the God Mode folder in C:\nPress the exit button to return to menu.";
+				text = "Done! Press the exit button to return to menu.";
 
 				GuiSetStyle(DEFAULT, TEXT_SIZE, BUTTON_FONT_SIZE);
 				GuiSetState(STATE_NORMAL);
@@ -64,11 +64,11 @@ TOOL_DRAW_FUNC()
 	return;
 }
 
-IMPL_TOOL(GodMode)
+IMPL_TOOL(Upgrader)
 {
 	command.type = CMD_COMMAND;
-	command.command = "mkdir";
-	command.args = "\"C:\\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}\"";
+	command.command = "winget";
+	command.args = "upgrade --all";
 
 	RUN_TOOL();
 

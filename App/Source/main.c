@@ -6,7 +6,7 @@
 int main(void)
 {
 	const LufrakTool tools[] = {
-		{ "Upgrader", NULL },
+		{ "Upgrader", &Upgrader },
 		{ "Installer", NULL },
 		{ "Optimizer", NULL },
 		{ "Backup and Security", NULL },

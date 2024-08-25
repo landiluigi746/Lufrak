@@ -8,7 +8,7 @@
 #define BUTTON_FONT_SIZE 18
 #define NORMAL_TEXT_SIZE 22
 
-#define DEFINE_TOOL(name) void name(void);
+#define DEFINE_TOOL(name) extern void name(void);
 #define IMPL_TOOL(name) void name(void)
 
 typedef struct
@@ -22,5 +22,6 @@ void LufrakClose(void);
 
 DEFINE_TOOL(SystemInfo)
 DEFINE_TOOL(GodMode)
+DEFINE_TOOL(Upgrader)
 
 #endif // !LUFRAK_H__

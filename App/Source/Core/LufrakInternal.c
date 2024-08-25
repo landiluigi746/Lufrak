@@ -16,6 +16,8 @@ void LufrakInternalInit(void)
 void LufrakInternalClose(void)
 {
 	CoUninitialize();
+
+	return;
 }
 
 static bool RunCmdCommand(const LufrakCommand* cmd)
