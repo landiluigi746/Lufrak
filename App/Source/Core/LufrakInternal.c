@@ -89,7 +89,7 @@ bool RunLufrakCommands(const LufrakCommand* commands, size_t numCommands)
 	return (result == numCommands);
 }
 
-void RunLufrakTool(LufrakToolFuncPtr runFunc, void (*drawFunc)(void))
+void RunLufrakTool(LufrakToolRunFuncPtr runFunc, LufrakToolDrawFuncPtr drawFunc)
 {
 	ASSERT(runFunc != NULL && drawFunc != NULL, "Null function pointer caught by RunLufrakTool()");
 
@@ -103,13 +103,6 @@ void RunLufrakTool(LufrakToolFuncPtr runFunc, void (*drawFunc)(void))
 	drawFunc();
 
 	ASSERT(CloseHandle(runThread), "Couldn't close thread handle");
-
-	/*threadsHandles[0] = CreateThread(NULL, 0, runFunc, NULL, 0, &threadsIDs[0]);
-	threadsHandles[1] = CreateThread(NULL, 0, drawFunc, NULL, 0, &threadsIDs[1]);
-
-	ASSERT(threadsHandles[0] != NULL && threadsHandles[1] != NULL, "Couldn't create tool threads in RunLufrakTool()");
-
-	WaitForMultipleObjects(2, threadsHandles, TRUE, INFINITE);*/
 
 	return;
 }

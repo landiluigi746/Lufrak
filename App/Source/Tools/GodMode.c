@@ -55,13 +55,13 @@ TOOL_DRAW_FUNC()
 			}
 
 			GuiSetStyle(DEFAULT, TEXT_SIZE, NORMAL_TEXT_SIZE);
-			GuiLabel(textRect, text, NORMAL_TEXT_SIZE, false);
+			GuiLabel(textRect, text);
 		}
 
 		EndDrawing();
 	}
 
-	return 0;
+	return;
 }
 
 IMPL_TOOL(GodMode)
