@@ -6,6 +6,7 @@
 #include <style_dark.h>
 
 static Font font = { 0 };
+static Image icon = { 0 };
 
 static const int windowWidth = 800;
 static const int windowHeight = 600;
@@ -19,11 +20,14 @@ void LufrakInit(void)
 
 	LufrakInternalInit();
 
-	InitWindow(windowWidth, windowHeight, "Example");
+	InitWindow(windowWidth, windowHeight, "Lufrak");
 	SetTargetFPS(60);
 
 	GuiLoadStyleDark();
 	font = LoadFont("App/Resources/Fonts/Comfortaa.ttf");
+
+	icon = LoadImage("App/Resources/Images/Logo.png");
+	SetWindowIcon(icon);
 
 	SetTextureFilter(font.texture, TEXTURE_FILTER_TRILINEAR);
 	GuiSetFont(font);
@@ -42,6 +46,7 @@ void LufrakClose(void)
 
 	CloseWindow();
 	UnloadFont(font);
+	UnloadImage(icon);
 
 	LufrakInternalClose();
 

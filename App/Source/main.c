@@ -11,7 +11,7 @@ int main(void)
 		{ "Optimizer", NULL },
 		{ "Backup and Security", NULL },
 		{ "Display System Information", &SystemInfo },
-		{ "Enable God Mode", NULL }
+		{ "Enable God Mode", &GodMode }
 	};
 
 	const size_t numTools = ARRAY_SIZE(tools);

@@ -61,11 +61,20 @@ typedef struct
 	const char* processorArchitecture;
 } SystemInformation;
 
+typedef LPTHREAD_START_ROUTINE LufrakToolFuncPtr;
+
 void LufrakInternalInit(void);
 void LufrakInternalClose(void);
 
 bool RunLufrakCommand(const LufrakCommand* command);
 bool RunLufrakCommands(const LufrakCommand* commands, size_t numCommands);
+
+void RunLufrakTool(LufrakToolFuncPtr runFunc, void (*drawFunc)(void));
+
+#define TOOL_FUNC(name) static DWORD WINAPI name(LPVOID lpData)
+#define TOOL_RUN_FUNC() TOOL_FUNC(Run)
+#define TOOL_DRAW_FUNC() static void Draw(name)
+#define RUN_TOOL() RunLufrakTool(&Run, &Draw)
 
 SystemInformation GetSystemInformation(void);
 
