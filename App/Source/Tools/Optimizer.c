@@ -6,11 +6,18 @@
 #include <style_dark.h>
 
 static ExecutionStatus status = PROCESSING;
-static LufrakCommand command = CMD_COMMAND("Upgrader", "winget", "upgrade --all");
+static LufrakCommand commands[] = {
+	CMD_COMMAND("", "ipconfig",	"/flushdns"),
+	CMD_COMMAND("", "cleanmgr",	"/sagerun:1"),
+	CMD_COMMAND("", "rmdir",	"/s /q \"%LocalAppData%\\Google\\Chrome\\User Data\\Default\\Cache\""),
+	CMD_COMMAND("", "net",		"stop wuauserv"),
+	CMD_COMMAND("", "rmdir",	"/s /q %windir%\\SoftwareDistribution"),
+	CMD_COMMAND("", "net",		"start wuauserv")
+};
 
 TOOL_RUN_FUNC()
 {
-	status = RunLufrakCommand(&command) ? SUCCESS : FAILURE;
+	status = RunLufrakCommands(commands, ARRAY_SIZE(commands)) ? SUCCESS : FAILURE;
 
 	return 0;
 }
@@ -32,12 +39,12 @@ TOOL_DRAW_FUNC()
 			Rectangle textRect = { GetScreenWidth() / 2 - 250, GetScreenHeight() / 2 - 60, 500, 70 };
 
 			GuiSetStyle(DEFAULT, TEXT_SIZE, SUBTITLE_FONT_SIZE);
-			GuiLabel((Rectangle) { GetScreenWidth() / 2 - 150, textRect.y - 100, 300, 35 }, "Upgrader");
+			GuiLabel((Rectangle) { GetScreenWidth() / 2 - 150, textRect.y - 100, 300, 35 }, "Optimizer");
 
 			switch (status)
 			{
 			case PROCESSING:
-				text = "Upgrading programs. Please wait";
+				text = "Running optimizer. Please wait";
 				break;
 			case SUCCESS:
 				text = "Done! Press the exit button to return to menu.";
@@ -66,7 +73,7 @@ TOOL_DRAW_FUNC()
 	return;
 }
 
-IMPL_TOOL(Upgrader)
+IMPL_TOOL(Optimizer)
 {
 	status = PROCESSING;
 

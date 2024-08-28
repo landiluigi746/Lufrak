@@ -8,7 +8,7 @@ int main(void)
 	const LufrakTool tools[] = {
 		{ "Upgrader", &Upgrader },
 		{ "Installer", NULL },
-		{ "Optimizer", NULL },
+		{ "Optimizer", &Optimizer },
 		{ "Backup and Security", NULL },
 		{ "Display System Information", &SystemInfo },
 		{ "Enable God Mode", &GodMode }

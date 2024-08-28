@@ -6,7 +6,7 @@
 #include <style_dark.h>
 
 static ExecutionStatus status = PROCESSING;
-static LufrakCommand command = { 0 };
+static LufrakCommand command = CMD_COMMAND("God Mode", "mkdir", "\"C:\\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}\"");
 
 TOOL_RUN_FUNC()
 {
@@ -41,20 +41,22 @@ TOOL_DRAW_FUNC()
 				break;
 			case SUCCESS:
 				text = "Done! You can find the God Mode folder in C:\nPress the exit button to return to menu.";
-
-				GuiSetStyle(DEFAULT, TEXT_SIZE, BUTTON_FONT_SIZE);
-				GuiSetState(STATE_NORMAL);
-
-				if (GuiButton((Rectangle) { GetScreenWidth() / 2 - 130, textRect.y + 120, 260, 35 }, "Exit"))
-					running = false;
-
 				break;
 			case FAILURE:
 				text = "Fail! An error has occurred! Press any key to return to menu.";
 				break;
 			}
 
-			GuiSetStyle(DEFAULT, TEXT_SIZE, NORMAL_TEXT_SIZE);
+			if (status != PROCESSING)
+			{
+				GuiSetStyle(DEFAULT, TEXT_SIZE, BUTTON_FONT_SIZE);
+				GuiSetState(STATE_NORMAL);
+
+				if (GuiButton((Rectangle) { GetScreenWidth() / 2 - 130, textRect.y + 120, 260, 35 }, "Exit"))
+					running = false;
+			}
+
+			GuiSetStyle(DEFAULT, TEXT_SIZE, NORMAL_FONT_SIZE);
 			GuiLabel(textRect, text);
 		}
 
@@ -66,9 +68,7 @@ TOOL_DRAW_FUNC()
 
 IMPL_TOOL(GodMode)
 {
-	command.type = CMD_COMMAND;
-	command.command = "mkdir";
-	command.args = "\"C:\\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}\"";
+	status = PROCESSING;
 
 	RUN_TOOL();
 

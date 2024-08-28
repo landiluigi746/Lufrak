@@ -29,7 +29,7 @@ typedef enum
 typedef enum
 {
 	CMD_COMMAND = 1,
-	WINGET_PACKAGE
+	WINGET_PACKAGE = 2
 } LufrakCommandType;
 
 typedef struct
@@ -42,7 +42,7 @@ typedef struct
 		struct
 		{
 			const char* wingetID;
-			bool selected;
+			bool toInstall;
 		};
 
 		struct
@@ -52,6 +52,9 @@ typedef struct
 		};
 	};
 } LufrakCommand;
+
+#define CMD_COMMAND(_displayName, _command, _args) { .type = CMD_COMMAND, .displayName = _displayName, .command = #_command, .args = _args }
+#define WINGET_PACKAGE(_displayName, _wingetID) { .type = WINGET_PACKAGE, .displayName = _displayName, .toInstall = false, .wingetID = _wingetID }
 
 typedef struct
 {
@@ -72,8 +75,7 @@ bool RunLufrakCommands(const LufrakCommand* commands, size_t numCommands);
 
 void RunLufrakTool(LufrakToolRunFuncPtr runFunc, LufrakToolDrawFuncPtr drawFunc);
 
-#define TOOL_FUNC(name) static DWORD WINAPI name(LPVOID lpData)
-#define TOOL_RUN_FUNC() TOOL_FUNC(Run)
+#define TOOL_RUN_FUNC() static DWORD WINAPI Run(LPVOID lpData)
 #define TOOL_DRAW_FUNC() static void Draw(void)
 #define RUN_TOOL() RunLufrakTool(&Run, &Draw)
 

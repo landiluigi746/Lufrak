@@ -23,6 +23,7 @@ void LufrakInternalClose(void)
 static bool RunCmdCommand(const LufrakCommand* cmd)
 {
 	ASSERT(cmd != NULL, "Null pointer caught by RunCmdCommand()");
+	ASSERT(cmd->type == CMD_COMMAND, "Non cmd command caught by RunCmdCommand()");
 
 	SHELLEXECUTEINFOA sei = { 0 };
 
