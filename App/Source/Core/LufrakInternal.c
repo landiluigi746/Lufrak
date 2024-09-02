@@ -32,7 +32,7 @@ static bool RunCmdCommand(const LufrakCommand* cmd)
 	sei.lpVerb = "runas";
 	sei.lpFile = cmd->command;
 	sei.lpParameters = cmd->args;
-	sei.nShow = SW_SHOW;
+	sei.nShow = SW_HIDE;
 
 	if (ShellExecuteExA(&sei))
 	{

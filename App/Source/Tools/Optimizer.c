@@ -1,9 +1,7 @@
 #include "Lufrak.h"
 #include "LufrakInternal.h"
 
-#include <raylib.h>
 #include <raygui.h>
-#include <style_dark.h>
 
 static ExecutionStatus status = PROCESSING;
 static LufrakCommand commands[] = {

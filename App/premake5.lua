@@ -6,6 +6,8 @@ project "Lufrak-App"
     targetdir "%{wks.location}/bin/%{cfg.buildcfg}"
     objdir "%{wks.location}/bin-int/%{cfg.buildcfg}"
 
+    targetname "Lufrak"
+
     filter "configurations:Release"
         kind "WindowedApp"
         entrypoint "mainCRTStartup"
@@ -22,8 +24,9 @@ project "Lufrak-App"
     {
         ["Header Files/*"] = { "Source/**.h" },
         ["Source Files/*"] = { "Source/**.c" },
+        ["Resource Files/*"] = { "**.rc" }
     }
-    files { "Source/**.h", "Source/**.c" }
+    files { "Source/**.h", "Source/**.c", "**.rc", "**.h" }
 
     includedirs { "Source/**" }
     

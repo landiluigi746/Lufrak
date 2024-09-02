@@ -1,9 +1,7 @@
 #include "Lufrak.h"
 #include "LufrakInternal.h"
 
-#include <raylib.h>
 #include <raygui.h>
-#include <style_dark.h>
 
 static ExecutionStatus status = PROCESSING;
 static LufrakCommand command = CMD_COMMAND("God Mode", "mkdir", "\"C:\\GodMode.{ED7BA470-8E54-465E-825C-99712043E01C}\"");

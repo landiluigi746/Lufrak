@@ -1,9 +1,7 @@
 #include "Lufrak.h"
 #include "LufrakInternal.h"
 
-#include <raylib.h>
 #include <raygui.h>
-#include <style_dark.h>
 
 IMPL_TOOL(SystemInfo)
 {
@@ -31,7 +29,7 @@ IMPL_TOOL(SystemInfo)
 			ClearBackground(GetColor(GuiGetStyle(DEFAULT, BACKGROUND_COLOR)));
 
 			uint32_t textLineSpacing = 20;
-			Vector2 textPos = { GetScreenWidth() * 1 / 4, GetScreenHeight() / 2 - textLineSpacing * 4};
+			Vector2 textPos = { GetScreenWidth() / 2 - 200, GetScreenHeight() / 2 - textLineSpacing * 4};
 
 			GuiSetStyle(DEFAULT, TEXT_SIZE, SUBTITLE_FONT_SIZE);
 
