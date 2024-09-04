@@ -1,51 +1,96 @@
-import { addDev } from './dev.js';
-import { addFeature } from './feature.js';
-
 const features = [
     {
-        title: 'Simple',
-        text: 'Lufrak is simple to use, ideal even for the less experienced. With an intuitive interface and guided steps, optimizing your PC is quick and easy. Try it now and improve your computer’s performance in just a few clicks!'
+        title: "Easy to use",
+        description: "Lufrak is designed to be easy to use. With a simple and intuitive interface, you can easily get your Windows 10/11 computer up and running."
     },
 
     {
-        title: 'Reliable',
-        text: 'Lufrak uses only processes and services that are integrated and verified by Windows. This ensures that our optimization techniques are safe, secure, and fully compatible with your system.'
+        title: "Reliable",
+        description: "Lufrak uses only tools and services that are integrated and verified by Windows (most notably winget). This ensures that our optimization techniques are safe, secure, and fully compatible with your system."
     },
 
     {
-        title: 'Transparent',
-        text: 'In the Transparency section of Lufrak, our Read Me provides a comprehensive overview of all the visible and hidden steps the program takes, ensuring you are always informed about what happens behind the scenes.'
+        title: "Transparent",
+        description: "Lufrak is completely transparent. All of the code that populates the program is available for you to review on <a href='https://github.com/landiluigi746/Lufrak' target='_blank'>GitHub</a>, and you can see what's happening in the background."
+    }
+
+];
+
+const screenshots = [
+    {
+        title: "Installer",
+        image: "images/Installer.png",
+    },
+
+    {
+        title: "Security",
+        image: "images/Security.png",
+    },
+
+    {
+        title: "You can also view some info on your computer!",
+        image: "images/System_Info.png",
     }
 ];
 
-const devs = [
+const teamMembers = [
     {
-        name: 'Luigi Landi',
-        img: 'images/landiluigi746.jpg',
+        name: "Luigi Landi",
+        image: "images/LandiLuigi.jpg",
         link: 'https://github.com/landiluigi746'
     },
 
     {
-        name: 'Francesco Gaeta',
-        img: 'images/francescogaeta.jpg',
+        name: "Francesco Gaeta",
+        image: "images/GaetaFrancesco.jpg",
         link: 'https://github.com/KeKK0z'
     }
 ];
 
-document.addEventListener('DOMContentLoaded', () => {
-    features.forEach(feature => addFeature(feature));
-    devs.forEach(dev => addDev(dev));
+function addTeamMembers() {
+    const teamContainer = document.querySelector(".team-members");
 
-    return;
-});
+    teamMembers.forEach(member => {
+        const memberElement = document.createElement("div");
+        memberElement.innerHTML = `
+            <img src="${member.image}">
+            <a href="${member.link}" target="_blank"><p>${member.name}</p></a>
+        `;
 
-document.addEventListener('scroll', () => {
-    const items = document.querySelectorAll('.item-toanimate');
-    items.forEach(item => {
-        if (item.getBoundingClientRect().top < window.innerHeight) {
-            item.classList.add('show-item');
-        }
+        teamContainer.appendChild(memberElement);
     });
+}
 
-    return;
+function addFeatures() {
+    const featuresContainer = document.querySelector(".features");
+
+    features.forEach(feature => {
+        const featureElement = document.createElement("div");
+        featureElement.innerHTML = `
+            <h3>${feature.title}</h3>
+            <p>${feature.description}</p>
+        `;
+
+        featuresContainer.appendChild(featureElement);
+    });
+}
+
+function addScreenshots() {
+    const screenshotsContainer = document.querySelector(".screenshots");
+
+    screenshots.forEach(screenshot => {
+        const screenshotElement = document.createElement("div");
+        screenshotElement.innerHTML = `
+            <h3>${screenshot.title}</h3>
+            <img class="screenshot" src="${screenshot.image}">
+        `;
+
+        screenshotsContainer.appendChild(screenshotElement);
+    });
+}
+
+document.addEventListener("DOMContentLoaded", () => {
+    addFeatures();
+    addScreenshots();
+    addTeamMembers();
 });

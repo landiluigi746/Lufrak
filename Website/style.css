@@ -1,156 +1,208 @@
-@font-face {
-    src: url(fonts/Cardo.ttf);
-    font-family: Cardo;
-}
+@import url("https://fonts.googleapis.com/css2?family=Cardo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
 
-body{
-    margin: 0;
-    text-align: center;
-    font-family: "Inter", sans-serif;
-}
-
-.wrap{
-    display: block;
-    white-space: pre-line;
-    margin: 0 auto;
-    max-width: 600px;
-}
-
-.padding{
-    padding: 20px;
-}
-
-.spacer{
-    height: 40px;
-}
-
-.item{
-    overflow: hidden;
-}
-
-.item-toanimate {
-    opacity: 0;
-    transform: translateY(100%);
-    transition: opacity 0.5s linear, transform 0.5s linear;
-}
-
-.show-item {
+.show {
     opacity: 1;
-    transform: translateY(0);
 }
 
-.normal-text {
-    font-family: Cardo;
-    font-weight: normal;
+.hide {
+    opacity: 0;
 }
 
-.circle {
-    height: 25px;
-    width: 25px;
-    background-color: #bbb;
-    border-radius: 50%;
-    display: inline-block;
-}
-
-header{
-    background-color: #f9f9f9;
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
     text-align: center;
-    padding: 20px;
 }
 
-.title {
-    font-size: 3.0em;
+header img {
+    max-width: 75%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-family: 'Cardo';
+    font-size: 2.5em;
     font-style: normal;
     font-weight: bold;
-    font-family: Cardo;
 }
 
-.subtitle {
+header p {
+    font-family: 'Comfortaa';
     font-size: 1.2em;
-    font-size: 35px;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: pre-line;
+    word-wrap: break-word;
 }
 
-.download-btn {
-    display: inline-block;
-    background-color: #4CAF50;
-    color: black;
-    padding: 10px 20px;
+header button {
+    background-color: rgb(71, 70, 70);
+    color: white;
+    cursor: pointer;
     text-align: center;
     text-decoration: none;
     font-size: 1.2em;
-    margin: 20px;
+    font-family: 'Comfortaa';
     border: none;
-    border-radius: 5px;
-}
-
-.download-btn:hover {
-    background-color: #45a049;
-}
-
-.brief {
-    display: flex;
-    justify-content: center;
-    align-items: center;
+    border-radius: 12px;
+    padding: 12px 30px;
     margin: 20px;
 }
 
-.brief-text {
-    flex: 1;
-    padding: 20px;
-    max-width: 38%;
-    text-align: justify;
-    font-size: 1.2em;
+header button:hover {
+    background-color: white;
+    color: rgb(71, 70, 70);
 }
 
-.brief-img {
-    flex: 1;
-    margin-left: 5%;
-    max-width: 40%;
-    height: auto;
-    border: solid;
-    border-radius: 10px;
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+main h2 {
+    font-family: 'Cardo';
+    font-size: 2em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+main p {
+    text-align: center;
+    font-family: 'Comfortaa';
+    font-size: 1.2em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.7;
+    white-space: pre-line;
 }
 
 .features {
-    justify-content: center;
-    align-items: center;
-    margin: 20px;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
 }
 
-.feature {
-    float: left;
-    padding: 20px;
-    max-width: 28%;
-    margin-left: 20px;
-    text-align: justify;
+.features > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.features h3 {
+    font-family: 'Cardo';
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.features p {
+    font-family: 'Comfortaa';
+    font-size: 1.1em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: pre-line;
+    max-width: 400px;
+}
+
+@media (max-width: 600px) {
+    .features {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.screenshots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.screenshots > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.screenshots h3 {
+    font-family: 'Cardo';
+    font-size: 1.2em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.screenshots img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 15px;
+}
+
+@media (max-width: 600px) {
+    .screenshots {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
 }
 
 footer {
-    background-color: black;
-    padding: 50px;
-    color: white;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
 }
 
-.devs {
+footer h3 {
+    font-family: 'Cardo';
+    font-size: 1.7em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+footer p {
+    font-family: 'Comfortaa';
+    font-size: 1.1em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+.team-members {
     display: flex;
     justify-content: center;
     align-items: center;
     margin: 20px;
 }
 
-.dev-img {
-    max-width: 50px;
+.team-members img {
+    max-width: 75px;
+    height: auto;
     border-radius: 50%;
-    margin: 10px;
+    margin: 25px;
+    vertical-align: middle;
 }
 
-.dev-name {
-    font-size: 1.2em;
-    font-weight: bold;
-    margin: 10px;
+.team-members p {
+    font-family: 'Comfortaa';
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: pre-line;
+    text-align: center;
 }
 
-.dev-link {
+.team-members a {
+    color: black;
     text-decoration: none;
-    color: white;
 }

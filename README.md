@@ -28,7 +28,7 @@
 
 ## 🖼️ Screenshots
 
-| Installazione          | Sicurezza              | Info Sistema           |
+| Installer              | Security               | System Info            |
 |------------------------|------------------------|------------------------|
 | ![Installer Screenshot](Website/images/Installer.png) | ![Security Screenshot](Website/images/Security.png) | ![System Info Screenshot](Website/images/System_Info.png) |
 
