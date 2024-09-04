@@ -24,15 +24,19 @@ static bool RunCmdCommand(const LufrakCommand* cmd)
 {
 	ASSERT(cmd != NULL, "Null pointer caught by RunCmdCommand()");
 	ASSERT(cmd->type == CMD_COMMAND, "Non cmd command caught by RunCmdCommand()");
+	ASSERT(cmd->command != NULL && cmd->args != NULL, "No command/args provided to cmd passed by RunCmdCommand()");
 
 	SHELLEXECUTEINFOA sei = { 0 };
+	char args[INTERNAL_BUF_SIZE] = { 0 };
+
+	sprintf_s(args, INTERNAL_BUF_SIZE, "/c %s %s", cmd->command, cmd->args);
 
 	sei.cbSize = sizeof(sei);
 	sei.fMask = SEE_MASK_NOCLOSEPROCESS;
 	sei.lpVerb = "runas";
-	sei.lpFile = cmd->command;
-	sei.lpParameters = cmd->args;
-	sei.nShow = SW_HIDE;
+	sei.lpFile = "cmd.exe";
+	sei.lpParameters = args;
+	sei.nShow = SW_SHOW;
 
 	if (ShellExecuteExA(&sei))
 	{

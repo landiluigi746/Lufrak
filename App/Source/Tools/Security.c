@@ -5,7 +5,6 @@
 
 static ExecutionStatus status = PROCESSING;
 static LufrakCommand commands[] = {
-	CMD_COMMAND("Create a Windows Restore Point", "wmic.exe", "/Namespace:\\\\root\\default Path SystemRestore Call CreateRestorePoint \"Lufrak\", 100, 7"),
 	CMD_COMMAND("Run a rapid virus scan", "C:\\Program Files\\Windows Defender\\MpCmdRun.exe", "-Scan -ScanType 1"),
 	CMD_COMMAND("Run a complete virus scan", "C:\\Program Files\\Windows Defender\\MpCmdRun.exe", "-Scan -ScanType 2")
 };
@@ -33,7 +32,7 @@ static bool GetSelection(void)
 			Rectangle buttonRect = { GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 - (numCommands + 1) * buttonSpacing / 2, 300, 35 };
 
 			GuiSetStyle(DEFAULT, TEXT_SIZE, SUBTITLE_FONT_SIZE);
-			GuiLabel((Rectangle) { GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 - 180, 300, 35 }, "Backup and Security");
+			GuiLabel((Rectangle) { GetScreenWidth() / 2 - 150, GetScreenHeight() / 2 - 180, 300, 35 }, "Security");
 
 			GuiSetStyle(DEFAULT, TEXT_SIZE, BUTTON_FONT_SIZE);
 
@@ -87,7 +86,7 @@ TOOL_DRAW_FUNC()
 			Rectangle textRect = { GetScreenWidth() / 2 - 250, GetScreenHeight() / 2 - 60, 500, 70 };
 
 			GuiSetStyle(DEFAULT, TEXT_SIZE, SUBTITLE_FONT_SIZE);
-			GuiLabel((Rectangle) { GetScreenWidth() / 2 - 150, textRect.y - 100, 300, 35 }, "Backup and Security");
+			GuiLabel((Rectangle) { GetScreenWidth() / 2 - 150, textRect.y - 100, 300, 35 }, "Security");
 
 			switch (status)
 			{
@@ -121,7 +120,7 @@ TOOL_DRAW_FUNC()
 	return;
 }
 
-IMPL_TOOL(BackupSecurity)
+IMPL_TOOL(Security)
 {
 	status = PROCESSING;
 	selected = 0;

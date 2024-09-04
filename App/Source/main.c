@@ -1,7 +1,6 @@
 #include "Lufrak.h"
 
 #include <raygui.h>
-#include <style_dark.h>
 
 int main(void)
 {
@@ -9,7 +8,7 @@ int main(void)
 		{ "Upgrader", &Upgrader },
 		{ "Installer", &Installer },
 		{ "Optimizer", &Optimizer },
-		{ "Backup and Security", &BackupSecurity },
+		{ "Security", &Security },
 		{ "Display System Information", &SystemInfo },
 		{ "Enable God Mode", &GodMode }
 	};
