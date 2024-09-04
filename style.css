@@ -1,0 +1,208 @@
+@import url("https://fonts.googleapis.com/css2?family=Cardo&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Comfortaa&display=swap");
+
+.show {
+    opacity: 1;
+}
+
+.hide {
+    opacity: 0;
+}
+
+header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+header img {
+    max-width: 75%;
+    height: auto;
+    margin-bottom: 20px;
+}
+
+header h1 {
+    font-family: 'Cardo';
+    font-size: 2.5em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+header p {
+    font-family: 'Comfortaa';
+    font-size: 1.2em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: pre-line;
+    word-wrap: break-word;
+}
+
+header button {
+    background-color: rgb(71, 70, 70);
+    color: white;
+    cursor: pointer;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2em;
+    font-family: 'Comfortaa';
+    border: none;
+    border-radius: 12px;
+    padding: 12px 30px;
+    margin: 20px;
+}
+
+header button:hover {
+    background-color: white;
+    color: rgb(71, 70, 70);
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+main h2 {
+    font-family: 'Cardo';
+    font-size: 2em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+main p {
+    text-align: center;
+    font-family: 'Comfortaa';
+    font-size: 1.2em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.7;
+    white-space: pre-line;
+}
+
+.features {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.features > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.features h3 {
+    font-family: 'Cardo';
+    font-size: 1.5em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.features p {
+    font-family: 'Comfortaa';
+    font-size: 1.1em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: pre-line;
+    max-width: 400px;
+}
+
+@media (max-width: 600px) {
+    .features {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+.screenshots {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.screenshots > * {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+.screenshots h3 {
+    font-family: 'Cardo';
+    font-size: 1.2em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+.screenshots img {
+    max-width: 70%;
+    height: auto;
+    border-radius: 15px;
+}
+
+@media (max-width: 600px) {
+    .screenshots {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+}
+
+footer {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+}
+
+footer h3 {
+    font-family: 'Cardo';
+    font-size: 1.7em;
+    font-style: normal;
+    font-weight: bold;
+}
+
+footer p {
+    font-family: 'Comfortaa';
+    font-size: 1.1em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: pre-line;
+}
+
+.team-members {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 20px;
+}
+
+.team-members img {
+    max-width: 75px;
+    height: auto;
+    border-radius: 50%;
+    margin: 25px;
+    vertical-align: middle;
+}
+
+.team-members p {
+    font-family: 'Comfortaa';
+    font-size: 0.9em;
+    font-style: normal;
+    font-weight: normal;
+    line-height: 1.5;
+    white-space: pre-line;
+    text-align: center;
+}
+
+.team-members a {
+    color: black;
+    text-decoration: none;
+}
