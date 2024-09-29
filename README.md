@@ -38,9 +38,9 @@
 
 You can download Lufrak in two ways:
 
-- **Download the executable from the last [release](https://github.com/landiluigi746/Lufrak/releases/tag/v1.0):**
+- **Download the executable from the last [release](https://github.com/landiluigi746/Lufrak/releases/tag/v1.1):**
 
-1. **Download Lufrak.zip** from [here](https://github.com/landiluigi746/Lufrak/releases/tag/v1.0).
+1. **Download Lufrak.zip** from [here](https://github.com/landiluigi746/Lufrak/releases/tag/v1.1).
 2. Extract the contents of the zip file.
 3. **Install the contents of the Redist folder.**
 4. **Run the Lufrak.exe file** and discover all the features of our optimizer.
@@ -48,7 +48,7 @@ You can download Lufrak in two ways:
 
 - **Clone the repository and build it yourself:**
 ```bash
-git clone https://github.com/NomeUtente/Lufrak.git
+git clone https://github.com/landiluigi746/Lufrak.git
 cd Lufrak
 ```
 
