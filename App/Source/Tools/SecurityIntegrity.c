@@ -6,7 +6,9 @@
 static ExecutionStatus status = PROCESSING;
 static LufrakCommand commands[] = {
 	CMD_COMMAND("Run a rapid virus scan", "C:\\Program Files\\Windows Defender\\MpCmdRun.exe", "-Scan -ScanType 1"),
-	CMD_COMMAND("Run a complete virus scan", "C:\\Program Files\\Windows Defender\\MpCmdRun.exe", "-Scan -ScanType 2")
+	CMD_COMMAND("Run a complete virus scan", "C:\\Program Files\\Windows Defender\\MpCmdRun.exe", "-Scan -ScanType 2"),
+	CMD_COMMAND("Verify and repair system files", "sfc", "/scannow"),
+	CMD_COMMAND("Test system memory", "mdsched", "")
 };
 
 static const size_t numCommands = ARRAY_SIZE(commands);
@@ -120,7 +122,7 @@ TOOL_DRAW_FUNC()
 	return;
 }
 
-IMPL_TOOL(Security)
+IMPL_TOOL(SecurityIntegrity)
 {
 	status = PROCESSING;
 	selected = 0;

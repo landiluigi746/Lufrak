@@ -24,7 +24,13 @@ static LufrakCommand packages[] = {
 	WINGET_PACKAGE("Logitech G HUB",        "Logitech.GHUB"),
 	WINGET_PACKAGE("GIMP",                  "GIMP.GIMP"),
 	WINGET_PACKAGE("EA Desktop",            "ElectronicArts.EADesktop"),
-	WINGET_PACKAGE("HWiNFO",                "REALiX.HWiNFO")
+	WINGET_PACKAGE("HWiNFO",                "REALiX.HWiNFO"),
+	WINGET_PACKAGE("OCCT",					"OCBase.OCCT.Personal"),
+	WINGET_PACKAGE("4K Video Downloader",	"OpenMedia.4KVideoDownloader"),
+	WINGET_PACKAGE("Shotcut",				"Meltytech.Shotcut"),
+	WINGET_PACKAGE("Ubisoft Connect",		"Ubisoft.Connect"),
+	WINGET_PACKAGE("GOG Galaxy",			"GOG.Galaxy"),
+	WINGET_PACKAGE("Audacity",				"Audacity.Audacity")
 };
 
 static const size_t numPackages = ARRAY_SIZE(packages);
@@ -69,7 +75,7 @@ static bool GetSelection(void)
 				GuiCheckBox(checkBoxRect, packages[i].displayName, &packages[i].toInstall);
 			}
 
-			Rectangle buttonRect = { GetScreenWidth() / 2 - 130, checkBoxRect.y + 100, 260, 35 };
+			Rectangle buttonRect = { GetScreenWidth() / 2 - 130, checkBoxRect.y + 45, 260, 35 };
 
 			if (GuiButton(buttonRect, "Install"))
 				running = false;

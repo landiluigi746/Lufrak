@@ -8,7 +8,7 @@ int main(void)
 		{ "Upgrader", &Upgrader },
 		{ "Installer", &Installer },
 		{ "Optimizer", &Optimizer },
-		{ "Security", &Security },
+		{ "Security and Integrity", &SecurityIntegrity },
 		{ "Display System Information", &SystemInfo },
 		{ "Enable God Mode", &GodMode }
 	};

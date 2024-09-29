@@ -26,6 +26,6 @@ DEFINE_TOOL(GodMode)
 DEFINE_TOOL(Upgrader)
 DEFINE_TOOL(Optimizer)
 DEFINE_TOOL(Installer)
-DEFINE_TOOL(Security)
+DEFINE_TOOL(SecurityIntegrity)
 
 #endif // !LUFRAK_H__
